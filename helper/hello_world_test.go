@@ -3,7 +3,29 @@ package helper
 import (
 	"fmt"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
+
+func TestSkip(t *testing.T) {
+	// if runtime.GOOS == "windows" {
+	// 	t.Skip("Can not run on Winodws")
+	// }
+
+	result := HelloWorld("Fakta")
+	require.Equal(t, "Hello Fakta", result, "Result must be 'Hello Fakta'")
+}
+
+func TestHelloWorldAssert(t *testing.T) {
+	result := HelloWorld("Fakta")
+	// Assert using Fail function
+	// assert.Equal(t, "Hello Fakta", result, "Result must be 'Hello Fakta'")
+
+	// Require using Fail Now function
+	require.Equal(t, "Hello Fakta", result, "Result must be 'Hello Fakta'")
+
+	fmt.Println("TestHelloWorld with Assert Done")
+}
 
 /*
 * HOW TO RUN UNIT TEST

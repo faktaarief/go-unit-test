@@ -7,6 +7,34 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+/** Benchmark testing
+* Running All Benchmark and All Unit Test on Root
+* $ go test -v -bench=. ./...
+*
+* Running All Benchmark Without Unit Test on Root
+* $ go test -v -run=NotMatchUnitTest -bench=. ./...
+*
+* Running All Benchmark and All Unit Test
+* $ go test -v -bench=.
+*
+* Only Running All Benchmark Without Unit Test
+* $ go test -v -run=NotMatchUnitTest -bench=.
+*
+* Only Running Specific Benchmark Without Unit Test
+* $ go test -v -run=NotMatchUnitTest -bench=BenchmarkHelloWorldArief
+ */
+func BenchmarkHelloWorld(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HelloWorld("Fakta")
+	}
+}
+
+func BenchmarkHelloWorldArief(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HelloWorld("Arief")
+	}
+}
+
 func TestTableHelloWorld(t *testing.T) {
 	tests := []struct {
 		name     string
@@ -52,7 +80,7 @@ func TestSubTest(t *testing.T) {
 	})
 	t.Run("Arief", func(t *testing.T) {
 		result := HelloWorld("Arief")
-		require.Equal(t, "Hi Arief", result, "Result must be 'Hello Arief'")
+		require.Equal(t, "Hello Arief", result, "Result must be 'Hello Arief'")
 	})
 }
 

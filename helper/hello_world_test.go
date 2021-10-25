@@ -23,6 +23,49 @@ import (
 * Only Running Specific Benchmark Without Unit Test
 * $ go test -v -run=NotMatchUnitTest -bench=BenchmarkHelloWorldArief
  */
+
+func BenchmarkTable(b *testing.B) {
+	benchmarks := []struct {
+		name    string
+		request string
+	}{
+		{
+			name:    "Fakta",
+			request: "Fakta",
+		},
+		{
+			name:    "Arief",
+			request: "Arief",
+		},
+		{
+			name:    "Farhanto",
+			request: "Farhanto",
+		},
+	}
+
+	for _, benchmark := range benchmarks {
+		b.Run(benchmark.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				HelloWorld(benchmark.request)
+			}
+		})
+	}
+}
+
+//  Sub Benchmark
+func BenchmarkSub(b *testing.B) {
+	b.Run("Fakta", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Fakta")
+		}
+	})
+	b.Run("Arief", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Arief")
+		}
+	})
+}
+
 func BenchmarkHelloWorld(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		HelloWorld("Fakta")
@@ -68,7 +111,7 @@ func TestTableHelloWorld(t *testing.T) {
 
 func TestSubTest(t *testing.T) {
 	/*
-	* How to Running Test only on Sub Test
+	* How to Running Test only on Sub Test (Benchmark Same Syntax)
 	* $ go test -v -run=TestSubTest/Fakta
 	*
 	* How to Running Test contains "Fakta"
